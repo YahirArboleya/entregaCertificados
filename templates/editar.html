@@ -1,10 +1,31 @@
-<h2>Editar alumno</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Alumno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='formularios.css') }}">
+</head>
+<body>
 
-<form method="POST">
-    <input type="text" name="nombre" value="{{ alumno.nombre }}" required><br>
-    <input type="text" name="curp" value="{{ alumno.curp }}"><br>
-    <input type="text" name="numero_control" value="{{ alumno.numero_control }}" required><br>
+<div class="container">
+    <h2>Editar alumno</h2>
 
-    <button type="submit">Guardar cambios</button>
-    <a href="{{ url_for('index') }}">Cancelar</a>
-</form>
+    <form method="POST">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ alumno.nombre }}" required>
+
+        <label>CURP</label>
+        <input type="text" name="curp" value="{{ alumno.curp }}">
+
+        <label>Número de control</label>
+        <input type="text" name="numero_control" value="{{ alumno.numero_control }}" required>
+
+        <div class="actions">
+            <button type="submit">Guardar cambios</button>
+            <a href="{{ url_for('index') }}">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

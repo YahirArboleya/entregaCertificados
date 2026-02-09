@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Alumno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='formularios.css') }}">
 </head>
 <body>
 
-<h2>Registrar alumno</h2>
+<div class="container">
+    <h2>Registrar alumno</h2>
 
-<form method="POST">
-    <label>Nombre:</label><br>
-    <input type="text" name="nombre" required><br><br>
+    <form method="POST">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
 
-    <label>CURP (opcional):</label><br>
-    <input type="text" name="curp"><br><br>
+        <label>CURP (opcional)</label>
+        <input type="text" name="curp">
 
-    <label>Número de control:</label><br>
-    <input type="text" name="numero_control" required><br><br>
+        <label>Número de control</label>
+        <input type="text" name="numero_control" required>
 
-    <button type="submit">Guardar</button>
-</form>
-
-<a href="/">Volver</a>
+        <div class="actions">
+            <button type="submit">Guardar</button>
+            <a href="{{ url_for('index') }}">Cancelar</a>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
