@@ -16,7 +16,7 @@ def index():
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT nombre, curp, numero_control FROM certificados_01")
+    cursor.execute("SELECT id, nombre, curp, numero_control FROM certificados_01")
     datos = cursor.fetchall()
     conn.close()
 
@@ -57,6 +57,65 @@ def registrar():
         return redirect(url_for("index"))
 
     return render_template("registrar.html")
+
+
+# -------------------------
+# Editar alumno
+# -------------------------
+@app.route("/editar/<int:id>", methods=["GET", "POST"])
+def editar(id):
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        curp = request.form["curp"]
+        numero_control = request.form["numero_control"]
+
+        try:
+            cursor.execute("""
+                UPDATE certificados_01
+                SET nombre=%s, curp=%s, numero_control=%s
+                WHERE id=%s
+            """, (nombre, curp, numero_control, id))
+            conn.commit()
+            flash("Alumno actualizado correctamente")
+        except:
+            flash("Error al actualizar (CURP o número duplicado)")
+        finally:
+            conn.close()
+
+        return redirect(url_for("index"))
+
+    cursor.execute("SELECT * FROM certificados_01 WHERE id=%s", (id,))
+    alumno = cursor.fetchone()
+    conn.close()
+
+    return render_template("editar.html", alumno=alumno)
+
+
+# -------------------------
+# ELIMINAR ALUMNO
+# -------------------------
+@app.route("/eliminar/<int:id>")
+def eliminar(id):
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM certificados_01 WHERE id=%s", (id,))
+    conn.commit()
+    conn.close()
+
+    flash("Alumno eliminado correctamente")
+    return redirect(url_for("index"))
+
+
 
 # -------------------------
 # LOGIN

@@ -17,6 +17,7 @@
         <th>Nombre</th>
         <th>CURP</th>
         <th>Número de control</th>
+        <th>Acciones</th>
     </tr>
 
     {% for a in alumnos %}
@@ -24,6 +25,13 @@
         <td>{{ a.nombre }}</td>
         <td>{{ a.curp if a.curp else "No registrada" }}</td>
         <td>{{ a.numero_control }}</td>
+        <td>
+    <a href="{{ url_for('editar', id=a.id) }}">✏️ Editar</a> |
+    <a href="{{ url_for('eliminar', id=a.id) }}"
+       onclick="return confirm('¿Seguro que deseas eliminar?')">
+       🗑 Eliminar
+    </a>
+</td>
     </tr>
     {% endfor %}
 </table>
