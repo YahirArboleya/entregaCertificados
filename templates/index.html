@@ -16,6 +16,12 @@
     <input type="text" name="q" placeholder="Buscar alumno..." value="{{ request.args.get('q','') }}">
     <button type="submit">🔍 Buscar</button>
 </form>
+<br><br>
+
+<div style="margin-bottom:15px;">
+    <a href="{{ url_for('exportar_excel') }}" class="btn">📊 Exportar Excel</a>
+    <a href="{{ url_for('exportar_pdf') }}" class="btn btn-pdf">📄 Exportar PDF</a>
+</div>
 
 
 <table>

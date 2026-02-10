@@ -19,3 +19,27 @@ th {
     background: #333;
     color: white;
 }
+
+
+.btn {
+    padding: 8px 14px;
+    background: #2c7be5;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.btn:hover {
+    background: #1a5fc2;
+}
+
+.btn-pdf {
+    background: #dc3545;
+}
+
+.btn-pdf:hover {
+    background: #b52a37;
+}
+

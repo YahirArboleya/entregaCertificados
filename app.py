@@ -1,5 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from db import get_connection
+from openpyxl import Workbook
+from flask import send_file
+import io
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
+
+
 
 app = Flask(__name__)
 
@@ -167,6 +175,88 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
+
+# -------------------------
+# EXPORTAR A EXCEL
+# -------------------------
+@app.route("/exportar/excel")
+def exportar_excel():
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT nombre, curp, numero_control FROM certificados_01 ORDER BY nombre")
+    alumnos = cursor.fetchall()
+    conn.close()
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Alumnos"
+
+    ws.append(["Nombre", "CURP", "Número de Control"])
+
+    for a in alumnos:
+        ws.append([
+            a["nombre"],
+            a["curp"] or "",
+            a["numero_control"]
+        ])
+
+    archivo = io.BytesIO()
+    wb.save(archivo)
+    archivo.seek(0)
+
+    return send_file(
+        archivo,
+        download_name="alumnos.xlsx",
+        as_attachment=True
+    )
+
+# -------------------------
+# EXPORTAR A PDF
+# -------------------------
+@app.route("/exportar/pdf")
+def exportar_pdf():
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT nombre, curp, numero_control FROM certificados_01 ORDER BY nombre")
+    alumnos = cursor.fetchall()
+    conn.close()
+
+    buffer = io.BytesIO()
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
+
+    data = [["Nombre", "CURP", "Número de Control"]]
+
+    for a in alumnos:
+        data.append([
+            a["nombre"],
+            a["curp"] or "",
+            a["numero_control"]
+        ])
+
+    tabla = Table(data)
+    tabla.setStyle(TableStyle([
+        ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+        ("GRID", (0,0), (-1,-1), 1, colors.black),
+        ("ALIGN", (0,0), (-1,-1), "CENTER"),
+        ("FONT", (0,0), (-1,0), "Helvetica-Bold"),
+    ]))
+
+    pdf.build([tabla])
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        download_name="alumnos.pdf",
+        as_attachment=True
+    )
+
 
 # -------------------------
 # RUN
