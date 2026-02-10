@@ -43,3 +43,12 @@ th {
     background: #b52a37;
 }
 
+
+.btn-logout {
+    background: #6c757d;
+}
+
+.btn-logout:hover {
+    background: #565e64;
+}
+

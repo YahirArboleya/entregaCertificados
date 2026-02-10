@@ -178,6 +178,16 @@ def logout():
 
 
 # -------------------------
+# RUTAS PROTEGIDAS
+# -------------------------
+@app.after_request
+def no_cache(response):
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+
+
+# -------------------------
 # EXPORTAR A EXCEL
 # -------------------------
 @app.route("/exportar/excel")
