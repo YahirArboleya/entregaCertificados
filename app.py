@@ -6,6 +6,8 @@ import io
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib import colors
+from werkzeug.security import check_password_hash
+
 
 
 
@@ -153,20 +155,24 @@ def login():
 
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
+
+        # 👇 SOLO buscamos por usuario
         cursor.execute(
-            "SELECT * FROM usuarios WHERE usuario=%s AND password=%s",
-            (user, pwd)
+            "SELECT * FROM usuarios WHERE usuario=%s",
+            (user,)
         )
         usuario = cursor.fetchone()
         conn.close()
 
-        if usuario:
+        # 👇 Validamos el hash
+        if usuario and check_password_hash(usuario["password"], pwd):
             session["usuario"] = user
             return redirect(url_for("index"))
         else:
             flash("Credenciales incorrectas", "error")
 
     return render_template("login.html")
+
 
 # -------------------------
 # LOGOUT (RECOMENDADO)
