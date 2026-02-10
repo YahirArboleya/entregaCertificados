@@ -12,6 +12,12 @@
 <a href="/registrar">➕ Registrar nuevo alumno</a>
 <br><br>
 
+<form method="get">
+    <input type="text" name="q" placeholder="Buscar alumno..." value="{{ request.args.get('q','') }}">
+    <button type="submit">🔍 Buscar</button>
+</form>
+
+
 <table>
     <tr>
         <th>Nombre</th>

@@ -14,13 +14,30 @@ def index():
     if "usuario" not in session:
         return redirect(url_for("login"))
 
+    q = request.args.get("q", "")
+
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, nombre, curp, numero_control FROM certificados_01")
-    datos = cursor.fetchall()
+
+    if q:
+        cursor.execute("""
+            SELECT id, nombre, curp, numero_control
+            FROM certificados_01
+            WHERE nombre LIKE %s OR numero_control LIKE %s
+            ORDER BY nombre
+        """, (f"%{q}%", f"%{q}%"))
+    else:
+        cursor.execute("""
+            SELECT id, nombre, curp, numero_control
+            FROM certificados_01
+            ORDER BY nombre
+        """)
+
+    alumnos = cursor.fetchall()
     conn.close()
 
-    return render_template("index.html", alumnos=datos)
+    return render_template("index.html", alumnos=alumnos)
+
 
 # -------------------------
 # REGISTRAR ALUMNO
