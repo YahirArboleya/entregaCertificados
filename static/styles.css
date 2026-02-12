@@ -1,4 +1,4 @@
-/* ===== RESET BÁSICO ===== */
+/* ===== RESET ===== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,120 +6,122 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f8;
-    color: #333;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #2c3e50;
 }
 
 /* ===== NAVBAR ===== */
 .navbar {
-    background: #1f2937;
+    background: #6A0D25; /* Vino institucional */
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 25px;
+    padding: 12px 30px;
+    position: relative;
 }
 
-.logo {
-    font-weight: bold;
+.system-name {
+    font-weight: 600;
     font-size: 16px;
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo-img {
+    height: 55px;
+    background-color: white;
 }
 
 .nav-right {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    font-size: 14px;
 }
 
 .nav-btn {
-    text-decoration: none;
+    background: #4B081A;
     color: white;
-    background: #374151;
     padding: 6px 12px;
-    border-radius: 5px;
+    border-radius: 4px;
+    text-decoration: none;
     font-size: 14px;
     transition: 0.2s ease;
 }
 
 .nav-btn:hover {
-    background: #4b5563;
+    background: #3a0614;
 }
 
-.logout {
-    background: #dc3545;
-}
-
-.logout:hover {
-    background: #b52a37;
-}
-
-/* ===== CONTENIDO GENERAL ===== */
+/* ===== CONTENIDO ===== */
 .content {
-    padding: 30px 40px;
+    padding: 40px 60px;
 }
 
 h2 {
     margin-bottom: 20px;
+    border-bottom: 2px solid #6A0D25;
+    padding-bottom: 5px;
+    color: #6A0D25;
 }
 
-/* ===== BOTONES GENERALES ===== */
+/* ===== BOTONES ===== */
+.top-actions {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
 .btn {
-    padding: 8px 14px;
-    background: #2c7be5;
+    background: #6A0D25;
     color: white;
-    border-radius: 5px;
+    padding: 8px 14px;
+    border-radius: 4px;
     text-decoration: none;
     font-size: 14px;
-    transition: 0.2s ease;
-}
-
-.btn:hover {
-    background: #1a5fc2;
-}
-
-.btn-pdf {
-    background: #dc3545;
-}
-
-.btn-pdf:hover {
-    background: #b52a37;
-}
-
-/* ===== BUSCADOR ===== */
-.search-box {
-    margin-bottom: 20px;
-}
-
-.search-box input {
-    padding: 8px;
-    width: 260px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.search-box button {
-    padding: 8px 12px;
+    transition: 0.2s;
     border: none;
-    background: #2c7be5;
-    color: white;
-    border-radius: 4px;
     cursor: pointer;
 }
 
-.search-box button:hover {
-    background: #1a5fc2;
+.btn:hover {
+    background: #4B081A;
 }
 
+.btn-danger {
+    background: #A4161A;
+}
+
+.btn-danger:hover {
+    background: #7f1013;
+}
+
+.btn-secondary {
+    background: #888;
+}
+
+.btn-secondary:hover {
+    background: #666;
+}
 /* ===== TABLA ===== */
 table {
-    background: white;
-    border-collapse: collapse;
     width: 100%;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 th {
-    background: #343a40;
+    background: #6A0D25;
     color: white;
     padding: 12px;
     text-align: left;
@@ -131,15 +133,84 @@ td {
 }
 
 tr:hover {
-    background: #f1f5f9;
+    background: #f8f2f4;
 }
 
-/* ===== LINKS EN ACCIONES ===== */
 td a {
     text-decoration: none;
-    font-size: 14px;
+    color: #6A0D25;
 }
 
 td a:hover {
     text-decoration: underline;
+}
+
+/* ===== FORMULARIOS ===== */
+.container-form {
+    background: white;
+    padding: 30px;
+    max-width: 500px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    margin: 40px auto; /* 🔥 ESTO LOS CENTRA */
+}
+
+/* Formularios normales */
+.container-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label { 
+    margin-top: 15px; 
+    margin-bottom: 5px; 
+    font-weight: 500; 
+}
+
+form input { 
+    padding: 8px;
+    border: 1px solid #ccc; 
+    border-radius: 4px; transition: 0.2s; 
+}
+
+form input:focus { 
+    outline: none; 
+    border-color: #6A0D25; 
+    box-shadow: 0 0 3px rgba(106,13,37,0.3); 
+}
+
+.actions {
+    margin-top: 20px; 
+    display: flex; 
+    gap: 10px; 
+}
+
+/* Buscador */
+.search-box {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: row; /* 🔥 Esto fuerza que sea horizontal */
+}
+
+.search-box input {
+    padding: 8px;
+    width: 260px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-box button {
+    padding: 8px 16px;
+    background: #6A0D25;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    width: auto; /* 🔥 evita que se estire */
+}
+
+.search-box button:hover {
+    background: #4B081A;
 }

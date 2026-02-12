@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sistema Escolar{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <span class="system-name">Sistema de Control Escolar</span>
+    </div>
+
+    <div class="nav-center">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo-img">
+    </div>
+
+    <div class="nav-right">
+        {% if session.get("usuario") %}
+            <span class="user-info">👤 {{ session["usuario"] }}</span>
+            <a href="{{ url_for('logout') }}" class="nav-btn logout">Cerrar sesión</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

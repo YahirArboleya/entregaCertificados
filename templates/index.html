@@ -1,59 +1,44 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Control de Certificados</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<nav class="navbar">
-    <div class="nav-left">
-        <span class="logo">📚 Control de Certificados</span>
-    </div>
+{% block title %}Inicio{% endblock %}
 
-    <div class="nav-right">
-        <a href="{{ url_for('registrar') }}" class="nav-btn">➕ Registrar</a>
-        <a href="{{ url_for('exportar_excel') }}" class="nav-btn">📊 Excel</a>
-        <a href="{{ url_for('exportar_pdf') }}" class="nav-btn">📄 PDF</a>
-        <a href="{{ url_for('logout') }}" class="nav-btn logout">🔒 Cerrar sesión</a>
-    </div>
-</nav>
+{% block content %}
 
-<div class="content">
+<h2>Listado de alumnos</h2>
 
-    <h2>Listado de alumnos</h2>
-
-    <form method="get" class="search-box">
-        <input type="text" name="q" placeholder="Buscar alumno..." value="{{ request.args.get('q','') }}">
-        <button type="submit">🔍 Buscar</button>
-    </form>
-
-    <table>
-        <tr>
-            <th>Nombre</th>
-            <th>CURP</th>
-            <th>Número de control</th>
-            <th>Acciones</th>
-        </tr>
-
-        {% for a in alumnos %}
-        <tr>
-            <td>{{ a.nombre }}</td>
-            <td>{{ a.curp if a.curp else "No registrada" }}</td>
-            <td>{{ a.numero_control }}</td>
-            <td>
-                <a href="{{ url_for('editar', id=a.id) }}">✏️ Editar</a> |
-                <a href="{{ url_for('eliminar', id=a.id) }}"
-                   onclick="return confirm('¿Seguro que deseas eliminar?')">
-                   🗑 Eliminar
-                </a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-
+<div class="top-actions">
+    <a href="{{ url_for('registrar') }}" class="btn">➕ Registrar</a>
+    <a href="{{ url_for('exportar_excel') }}" class="btn">📊 Excel</a>
+    <a href="{{ url_for('exportar_pdf') }}" class="btn btn-danger">📄 PDF</a>
 </div>
 
-</body>
-</html>
+<form method="get" class="search-box">
+    <input type="text" name="q" placeholder="Buscar alumno..." value="{{ request.args.get('q','') }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>CURP</th>
+        <th>Número de control</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for a in alumnos %}
+    <tr>
+        <td>{{ a.nombre }}</td>
+        <td>{{ a.curp if a.curp else "No registrada" }}</td>
+        <td>{{ a.numero_control }}</td>
+        <td>
+            <a href="{{ url_for('editar', id=a.id) }}">Editar</a> |
+            <a href="{{ url_for('eliminar', id=a.id) }}"
+               onclick="return confirm('¿Seguro que deseas eliminar?')">
+               Eliminar
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

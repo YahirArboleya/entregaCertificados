@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrar Alumno</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='formularios.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<div class="container">
+{% block title %}Registrar Alumno{% endblock %}
+
+{% block content %}
+
+<div class="container-form">
     <h2>Registrar alumno</h2>
 
     <form method="POST">
@@ -21,11 +18,10 @@
         <input type="text" name="numero_control" required>
 
         <div class="actions">
-            <button type="submit">Guardar</button>
-            <a href="{{ url_for('index') }}">Cancelar</a>
+            <button type="submit" class="btn">Guardar</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>
 
-</body>
-</html>
+{% endblock %}
