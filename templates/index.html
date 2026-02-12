@@ -7,51 +7,53 @@
 </head>
 <body>
 
-<h2>Listado de alumnos</h2>
+<nav class="navbar">
+    <div class="nav-left">
+        <span class="logo">📚 Control de Certificados</span>
+    </div>
 
-<a href="/registrar">➕ Registrar nuevo alumno</a>
-<br><br>
+    <div class="nav-right">
+        <a href="{{ url_for('registrar') }}" class="nav-btn">➕ Registrar</a>
+        <a href="{{ url_for('exportar_excel') }}" class="nav-btn">📊 Excel</a>
+        <a href="{{ url_for('exportar_pdf') }}" class="nav-btn">📄 PDF</a>
+        <a href="{{ url_for('logout') }}" class="nav-btn logout">🔒 Cerrar sesión</a>
+    </div>
+</nav>
 
-<div style="text-align:right; margin-bottom:15px;">
-    <a href="{{ url_for('logout') }}" class="btn btn-logout">🔒 Cerrar sesión</a>
+<div class="content">
+
+    <h2>Listado de alumnos</h2>
+
+    <form method="get" class="search-box">
+        <input type="text" name="q" placeholder="Buscar alumno..." value="{{ request.args.get('q','') }}">
+        <button type="submit">🔍 Buscar</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>CURP</th>
+            <th>Número de control</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for a in alumnos %}
+        <tr>
+            <td>{{ a.nombre }}</td>
+            <td>{{ a.curp if a.curp else "No registrada" }}</td>
+            <td>{{ a.numero_control }}</td>
+            <td>
+                <a href="{{ url_for('editar', id=a.id) }}">✏️ Editar</a> |
+                <a href="{{ url_for('eliminar', id=a.id) }}"
+                   onclick="return confirm('¿Seguro que deseas eliminar?')">
+                   🗑 Eliminar
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
 </div>
-
-
-<form method="get">
-    <input type="text" name="q" placeholder="Buscar alumno..." value="{{ request.args.get('q','') }}">
-    <button type="submit">🔍 Buscar</button>
-</form>
-<br><br>
-
-<div style="margin-bottom:15px;">
-    <a href="{{ url_for('exportar_excel') }}" class="btn">📊 Exportar Excel</a>
-    <a href="{{ url_for('exportar_pdf') }}" class="btn btn-pdf">📄 Exportar PDF</a>
-</div>
-
-
-<table>
-    <tr>
-        <th>Nombre</th>
-        <th>CURP</th>
-        <th>Número de control</th>
-        <th>Acciones</th>
-    </tr>
-
-    {% for a in alumnos %}
-    <tr>
-        <td>{{ a.nombre }}</td>
-        <td>{{ a.curp if a.curp else "No registrada" }}</td>
-        <td>{{ a.numero_control }}</td>
-        <td>
-    <a href="{{ url_for('editar', id=a.id) }}">✏️ Editar</a> |
-    <a href="{{ url_for('eliminar', id=a.id) }}"
-       onclick="return confirm('¿Seguro que deseas eliminar?')">
-       🗑 Eliminar
-    </a>
-</td>
-    </tr>
-    {% endfor %}
-</table>
 
 </body>
 </html>

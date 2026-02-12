@@ -1,34 +1,76 @@
+/* ===== RESET BÁSICO ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #333;
 }
 
-table {
-    background: white;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-
-th {
-    background: #333;
+/* ===== NAVBAR ===== */
+.navbar {
+    background: #1f2937;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 25px;
 }
 
+.logo {
+    font-weight: bold;
+    font-size: 16px;
+}
 
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    text-decoration: none;
+    color: white;
+    background: #374151;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.nav-btn:hover {
+    background: #4b5563;
+}
+
+.logout {
+    background: #dc3545;
+}
+
+.logout:hover {
+    background: #b52a37;
+}
+
+/* ===== CONTENIDO GENERAL ===== */
+.content {
+    padding: 30px 40px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+/* ===== BOTONES GENERALES ===== */
 .btn {
     padding: 8px 14px;
     background: #2c7be5;
     color: white;
     border-radius: 5px;
     text-decoration: none;
-    margin-right: 8px;
     font-size: 14px;
+    transition: 0.2s ease;
 }
 
 .btn:hover {
@@ -43,12 +85,61 @@ th {
     background: #b52a37;
 }
 
-
-.btn-logout {
-    background: #6c757d;
+/* ===== BUSCADOR ===== */
+.search-box {
+    margin-bottom: 20px;
 }
 
-.btn-logout:hover {
-    background: #565e64;
+.search-box input {
+    padding: 8px;
+    width: 260px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
+.search-box button {
+    padding: 8px 12px;
+    border: none;
+    background: #2c7be5;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #1a5fc2;
+}
+
+/* ===== TABLA ===== */
+table {
+    background: white;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+th {
+    background: #343a40;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tr:hover {
+    background: #f1f5f9;
+}
+
+/* ===== LINKS EN ACCIONES ===== */
+td a {
+    text-decoration: none;
+    font-size: 14px;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
